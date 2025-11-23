@@ -5,7 +5,7 @@ import { loginUser } from '../services/authService';
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',   // <-- CHANGED
     password: ''
   });
 
@@ -26,9 +26,8 @@ const Login = ({ onLogin }) => {
     try {
       const response = await loginUser(formData);
 
-      // Backend returns only { message, role }
       const user = {
-        username: formData.username,
+        email: formData.email,
         role: response.data.role
       };
 
@@ -54,11 +53,11 @@ const Login = ({ onLogin }) => {
           {error && <div className="error-message">{error}</div>}
 
           <div className="form-group">
-            <label>Username (Email)</label>
+            <label>Email</label>
             <input
               type="text"
-              name="username"
-              value={formData.username}
+              name="email"        // <-- CHANGED
+              value={formData.email}
               onChange={handleChange}
               required
             />

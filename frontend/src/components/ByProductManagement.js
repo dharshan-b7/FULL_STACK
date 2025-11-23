@@ -1,8 +1,9 @@
-import { 
-  getByProducts, 
-  addByProduct, 
-  updateByProductStatus 
+import {
+  getByProducts,
+  updateByProductStatus
 } from "../services/byproductService";
+
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ByProductManagement.css";

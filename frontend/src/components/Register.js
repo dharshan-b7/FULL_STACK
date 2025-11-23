@@ -1,52 +1,51 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Register.css';
-import { registerUser } from '../services/authService';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Register.css";
+import { registerUser } from "../services/authService";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    role: 'agent'
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "agent",
   });
 
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
+    const payload = {
+      email: formData.email,
+      password: formData.password,
+      confirm_password: formData.confirmPassword,
+      role: formData.role,
+    };
+
     try {
-      const payload = {
-        username: formData.email,  // Django needs username
-        password: formData.password,
-        role: formData.role
-      };
-
       await registerUser(payload);
-
-      setSuccess('Registration successful!');
-      setTimeout(() => navigate('/login'), 1500);
-
+      setSuccess("Registration successful!");
+      setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
       console.log(err);
-      setError('Registration failed');
+      setError("Registration failed");
     }
   };
 
@@ -86,7 +85,7 @@ const Register = () => {
 
           <div className="form-group">
             <label>Password</label>
-            <input 
+            <input
               type="password"
               name="password"
               value={formData.password}
@@ -97,7 +96,7 @@ const Register = () => {
 
           <div className="form-group">
             <label>Confirm Password</label>
-            <input 
+            <input
               type="password"
               name="confirmPassword"
               value={formData.confirmPassword}
@@ -106,7 +105,9 @@ const Register = () => {
             />
           </div>
 
-          <button type="submit" className="btn-primary">Register</button>
+          <button type="submit" className="btn-primary">
+            Register
+          </button>
 
           <div className="register-footer">
             Already have an account? <a href="/login">Login</a>

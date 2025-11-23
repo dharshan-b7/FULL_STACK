@@ -1,12 +1,11 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: "http://127.0.0.1:8000",
-  withCredentials: true,
-});
+const API_BASE = process.env.REACT_APP_API_URL + "/auth";
 
-export const registerUser = (data) =>
-  API.post("/auth/register/", data);
+export const registerUser = (data) => {
+  return axios.post(`${API_BASE}/register/`, data);
+};
 
-export const loginUser = (data) =>
-  API.post("/auth/login/", data);
+export const loginUser = (data) => {
+  return axios.post(`${API_BASE}/login/`, data);
+};
