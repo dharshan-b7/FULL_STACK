@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import MaterialAnalysisView, DashboardView
+from . import views
 
 urlpatterns = [
-    path('analyze', MaterialAnalysisView.as_view()),
-    path('dashboard', DashboardView.as_view()),
+    path("analyze/", views.analyze_material),
+    path("list/", views.list_materials),
 ]

@@ -1,23 +1,12 @@
-import api from './api';
+import axios from "axios";
 
-export const byproductService = {
-  // Get all by-products
-  getByProducts: async () => {
-    try {
-      const response = await api.get('/byproducts');
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || { error: 'Failed to fetch by-products' };
-    }
-  },
+const API = "http://127.0.0.1:8000/byproduct";
 
-  // Update by-product status
-  updateStatus: async (id, status) => {
-    try {
-      const response = await api.put(`/byproducts/${id}/status`, { status });
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || { error: 'Failed to update status' };
-    }
-  }
-};
+export const getByProducts = () =>
+  axios.get(`${API}/list/`).then(res => res.data);
+
+export const addByProduct = (data) =>
+  axios.post(`${API}/add/`, data).then(res => res.data);
+
+export const updateByProductStatus = (id, status) =>
+  axios.put(`${API}/update/${id}/`, { status }).then(res => res.data);

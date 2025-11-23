@@ -1,33 +1,18 @@
-import api from './api';
+import axios from "axios";
 
-export const analysisService = {
-  // Analyze material
-  analyzeMaterial: async (materialData) => {
-    try {
-      const response = await api.post('/analyze', materialData);
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || { error: 'Analysis failed' };
-    }
-  },
+const API_URL = "http://127.0.0.1:8000/analysis/";
 
-  // Get dashboard stats
-  getDashboardStats: async () => {
-    try {
-      const response = await api.get('/dashboard');
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || { error: 'Failed to fetch dashboard data' };
-    }
-  },
+export const getMaterials = async () => {
+  const res = await axios.get(`${API_URL}list/`);
+  return res.data;
+};
 
-  // Get all materials
-  getMaterials: async () => {
-    try {
-      const response = await api.get('/materials');
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || { error: 'Failed to fetch materials' };
-    }
-  }
+export const addMaterial = async (data) => {
+  const res = await axios.post(`${API_URL}add/`, data);
+  return res.data;
+};
+
+export const analyzeMaterial = async (materialData) => {
+  const res = await axios.post(`${API_URL}analyze/`, materialData);
+  return res;   // MaterialAnalysis.js already uses response.data
 };
