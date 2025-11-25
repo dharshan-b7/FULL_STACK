@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+from .views import register_user, login_user, user_list
 
 urlpatterns = [
-    path("register/", views.register_user, name="register"),
-    path("login/", views.login_user, name="login"),
+    path("register/", register_user),
+    path("login/", login_user),
+    path("users/", user_list),   # <-- FIXED 404
 ]

@@ -5,6 +5,7 @@ import { registerUser } from "../services/authService";
 
 const Register = () => {
   const [formData, setFormData] = useState({
+    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -32,11 +33,17 @@ const Register = () => {
       return;
     }
 
+    // ✅ Split full name into first + last
+    //const nameParts = formData.fullName.trim().split(" ");
+    //const first_name = nameParts[0];
+    //const last_name = nameParts.slice(1).join(" ");
+
     const payload = {
       email: formData.email,
       password: formData.password,
       confirm_password: formData.confirmPassword,
       role: formData.role,
+      fullName: formData.fullName,
     };
 
     try {
@@ -62,6 +69,18 @@ const Register = () => {
 
           {error && <div className="error-message">{error}</div>}
           {success && <div className="success-message">{success}</div>}
+
+          <div className="form-group">
+            <label>Full Name</label>
+            <input
+              type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
 
           <div className="form-group">
             <label>Email (Username)</label>

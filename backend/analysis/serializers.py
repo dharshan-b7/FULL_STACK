@@ -4,4 +4,4 @@ from .models import MaterialAnalysis
 class MaterialAnalysisSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaterialAnalysis
-        fields = '__all__'
+        fields = "__all__"

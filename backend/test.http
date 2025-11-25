@@ -1,9 +1,10 @@
-POST http://127.0.0.1:8000/auth/register/
+POST http://127.0.0.1:8000/analysis/analyze/
 Content-Type: application/json
 
 {
-  "email": "abc@gmail.com",
-  "password": "123456",
-  "confirm_password": "123456",
-  "role": "agent"
+  "material_type": "Bauxite Ore",
+  "weight": 100,
+  "purity": 2.5,
+  "source": "Local Mine",
+  "notes": "Sample testing"
 }

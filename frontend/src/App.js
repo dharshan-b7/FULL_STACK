@@ -8,6 +8,11 @@ import MaterialAnalysis from './components/MaterialAnalysis';
 import ByProductManagement from './components/ByProductManagement';
 import './App.css';
 
+
+
+
+
+
 function App() {
   const [user, setUser] = useState(null);
 
@@ -42,6 +47,7 @@ function App() {
             user ? <ByProductManagement user={user} onLogout={handleLogout} /> : <Navigate to="/login" />
           } />
           <Route path="/" element={<Navigate to="/login" />} />
+        
         </Routes>
       </div>
     </Router>

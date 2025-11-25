@@ -75,11 +75,16 @@ WSGI_APPLICATION = "aluminum_backend.wsgi.application"
 # DATABASE
 # -------------------------
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'aluminiumdb',     # your new DB name
+        'USER': 'root',            # your MySQL username
+        'PASSWORD': 'Varshini7.',# <- change this
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
+
 
 # -------------------------
 # PASSWORD VALIDATION

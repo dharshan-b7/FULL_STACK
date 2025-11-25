@@ -1,7 +1,9 @@
 from django.urls import path
-from . import views
+from .views import analyze_material, list_materials, report_summary
 
 urlpatterns = [
-    path("analyze/", views.analyze_material),
-    path("list/", views.list_materials),
+    path('analyze/', analyze_material, name='analyze-material'),
+    path('list/', list_materials, name='list-materials'),
+
+
 ]

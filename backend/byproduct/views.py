@@ -2,6 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import ByProduct
 from .serializers import ByProductSerializer
+from byproduct.models import ByProduct
+
 
 @api_view(["GET"])
 def list_byproducts(request):

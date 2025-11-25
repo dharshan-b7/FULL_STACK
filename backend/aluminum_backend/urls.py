@@ -6,4 +6,6 @@ urlpatterns = [
     path("auth/", include("authapp.urls")),
     path("analysis/", include("analysis.urls")),
     path("byproduct/", include("byproduct.urls")),
+
+
 ]

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Dashboard.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Dashboard.css";
 
-// ✅ Correct import (there is NO analysisService in your services folder)
 import { getMaterials } from "../services/analysisService";
 
 const Dashboard = ({ user, onLogout }) => {
@@ -10,7 +9,7 @@ const Dashboard = ({ user, onLogout }) => {
     totalProcessed: 0,
     aluminumYield: 0,
     byproductsManaged: 0,
-    pendingAnalysis: 0
+    pendingAnalysis: 0,
   });
 
   const [recentActivities, setRecentActivities] = useState([]);
@@ -20,28 +19,36 @@ const Dashboard = ({ user, onLogout }) => {
     fetchDashboardData();
   }, []);
 
-  // ✅ FIXED DASHBOARD LOGIC (NO analysisService)
   const fetchDashboardData = async () => {
     try {
       const materials = await getMaterials();
 
+      const avgYield =
+        materials.length > 0
+          ? (
+              materials.reduce((sum, m) => sum + m.quality_percent, 0) /
+              materials.length
+            ).toFixed(1)
+          : 0;
+
       setStats({
         totalProcessed: materials.length,
-        aluminumYield: 72, // dummy value
-        byproductsManaged: 14, // dummy value
-        pendingAnalysis: materials.filter(m => m.status === "pending").length
+        aluminumYield: avgYield,
+        byproductsManaged: 14, // (later link with real table)
+        pendingAnalysis: materials.filter((m) => m.status === "pending").length,
       });
 
       setRecentActivities(
-        materials.slice(0, 5).map(m => ({
+        materials.slice(0, 5).map((m) => ({
           icon: "📦",
-          title: `Processed ${m.materialType}`,
-          time: `Date: ${m.date}`
+          title: `Processed ${m.material_name}`,
+          time: `Date: ${
+            m.created_at ? m.created_at.split("T")[0] : "Unknown"
+          }`,
         }))
       );
-
     } catch (err) {
-      console.error('Error fetching dashboard data:', err);
+      console.error("Error fetching dashboard data:", err);
     }
   };
 
@@ -52,15 +59,23 @@ const Dashboard = ({ user, onLogout }) => {
           <h2>🔬 Aluminum Recovery System</h2>
         </div>
         <div className="nav-menu">
-          <button onClick={() => navigate('/dashboard')} className="nav-link active">
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="nav-link active"
+          >
             Dashboard
           </button>
-          <button onClick={() => navigate('/analysis')} className="nav-link">
+
+          <button onClick={() => navigate("/analysis")} className="nav-link">
             Material Analysis
           </button>
-          <button onClick={() => navigate('/byproducts')} className="nav-link">
+
+          <button onClick={() => navigate("/byproducts")} className="nav-link">
             By-Products
           </button>
+
+  
+
           <button onClick={onLogout} className="btn-logout">
             Logout
           </button>
@@ -69,7 +84,9 @@ const Dashboard = ({ user, onLogout }) => {
 
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h1>Welcome back, {user.username}!</h1>
+          <h1>
+            Welcome !
+          </h1>
           <p className="user-role">Role: {user.role}</p>
         </div>
 
@@ -110,25 +127,23 @@ const Dashboard = ({ user, onLogout }) => {
         <div className="quick-actions">
           <h2>Quick Actions</h2>
           <div className="action-buttons">
-            <button className="action-btn" onClick={() => navigate('/analysis')}>
+            <button
+              className="action-btn"
+              onClick={() => navigate("/analysis")}
+            >
               <span className="action-icon">🔍</span>
               <span>Analyze Material</span>
             </button>
 
-            <button className="action-btn" onClick={() => navigate('/byproducts')}>
+            <button
+              className="action-btn"
+              onClick={() => navigate("/byproducts")}
+            >
               <span className="action-icon">♻️</span>
               <span>Manage By-Products</span>
             </button>
 
-            <button className="action-btn">
-              <span className="action-icon">📊</span>
-              <span>View Reports</span>
-            </button>
 
-            <button className="action-btn">
-              <span className="action-icon">⚙️</span>
-              <span>Settings</span>
-            </button>
           </div>
         </div>
 

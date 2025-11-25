@@ -5,7 +5,7 @@ import { loginUser } from '../services/authService';
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
-    email: '',   // <-- CHANGED
+    email: '',
     password: ''
   });
 
@@ -26,13 +26,16 @@ const Login = ({ onLogin }) => {
     try {
       const response = await loginUser(formData);
 
+      // Backend returns first_name & last_name
       const user = {
-        email: formData.email,
-        role: response.data.role
+        email: response.data.email,
+        role: response.data.role,
+        first_name: response.data.first_name,
+        last_name: response.data.last_name
       };
 
-      onLogin(user);
-      navigate('/dashboard');
+      onLogin(user);                       // store in App.js
+      navigate('/dashboard');              // go to dashboard
 
     } catch (err) {
       setError("Invalid login credentials");
@@ -56,7 +59,7 @@ const Login = ({ onLogin }) => {
             <label>Email</label>
             <input
               type="text"
-              name="email"        // <-- CHANGED
+              name="email"
               value={formData.email}
               onChange={handleChange}
               required
