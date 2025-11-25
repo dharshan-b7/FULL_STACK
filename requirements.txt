@@ -1,0 +1,22 @@
+Django==5.0.2
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+python-dotenv==1.0.1
+
+mysqlclient==2.2.4
+
+# Optional but useful
+Pillow==10.3.0
+
+# If you ever use timezone or date parsing
+pytz==2024.1
+
+# For Django testing enhancements (optional)
+coverage==7.4.0
+
+#to install:
+'''
+Inside your backend venv:
+
+pip install -r requirements.txt
+'''
